@@ -5,17 +5,20 @@ void setup() {
 int current = 0;
 
 void loop() {
-  if(analogRead(A0) != current)
+  if (Serial.available())
   {
-    current = analogRead(A0) / 10;
-    if(current > 20)
+     if(analogRead(A0) != current)
     {
-      Serial.println(current); 
+      current = analogRead(A0) / 10;
+      if(current > 10)
+      {
+        Serial.println(current); 
+      }
+      else
+      {
+        Serial.println("------"); 
+      }
     }
-    else
-    {
-      Serial.println("------"); 
-    }
+    delay(1000); 
   }
-  delay(1000);
 }
