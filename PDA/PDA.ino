@@ -2,23 +2,26 @@ void setup() {
   Serial.begin(9600);
 }
 
-int current = 0;
+int inputValue = 0;
 
 void loop() {
-  if (Serial.available())
-  {
-     if(analogRead(A0) != current)
-    {
-      current = analogRead(A0) / 10;
-      if(current > 10)
+  
+  sendStatus();
+}
+
+void sendStatus()
+{
+  char buffer[50];
+  inputValue = analogRead(A0);
+
+  if(inputValue / 10 > 10)
       {
-        Serial.println(current); 
+         sprintf (buffer, "Pulse: %d", inputValue / 10);
       }
       else
       {
-        Serial.println("------"); 
+        sprintf (buffer, "Pulse: ----");
       }
-    }
-    delay(1000); 
-  }
+      
+      Serial.println(buffer);
 }
